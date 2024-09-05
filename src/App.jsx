@@ -1,34 +1,26 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import'bootstrap/dist/css/bootstrap.min.css';
+import ContactContext from './context/ContactsContext';
+import ContactList from './components/ContactList';
+import ProductList from './components/ProductList';
+import NewProductForm from './components/NewProductForm';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [contacts, setContacts ] = useState([    
+    { name: "Fox Mulder", email: "iwant2believe@gmail.com", phone: "111-222-4444"},
+    { name: "Dana Scully", email: "dkscully@gmail.com", phone: "111-222-333" }
+  ])
+
+
+  
+  const [selectedContact, setSelectedContact] = useState(null)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <ContactContext.Provider value={{contacts, setContacts, selectedContact, setSelectedContact}}>
+      <ContactList/>
+        <ProductList />
+        <NewProductForm />
+    </ContactContext.Provider>
   )
 }
 
